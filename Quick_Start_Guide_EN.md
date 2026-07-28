@@ -1,73 +1,133 @@
 # Allen CCF Explorer — Quick Start Guide
 
+A browser-based tool for exploring the Allen Mouse Brain Common Coordinate Framework (**CCFv3, 2017**) in 3D, and for planning injection and insertion targets in coordinates you can take straight to the stereotaxic frame. The mesh data is built into the app, so **no installation and no internet connection are required.**
+
+---
+
 ## Before you start
 
-- **All coordinates are in mm**, and the origin is **bregma**. Coordinates are shown as ML / AP / DV.
-- On first launch, a **loading screen** briefly appears while the mesh data is read, and then the viewer opens **directly, with no folder to select**. (The dataset is embedded in the app, so it works offline.)
-- Run it in a **modern web browser** (Chrome / Edge, or Firefox · Safari from 2023 onward). Mesh decompression relies on a built-in browser feature, so it may not open in older browsers.
+**Coordinate convention**
+
+- Units are **mm**; the origin is **bregma**.
+- **ML+ = right, AP+ = anterior, DV+ = dorsal.**
+
+**Requirements**
+
+- **Chrome · Edge**, or **Firefox · Safari from 2023 onward**. Mesh decompression relies on a built-in browser feature, so older browsers will not open the app.
+- On the first launch a **loading screen** appears for a few seconds while the mesh is read. After that the viewer opens immediately.
+
+**Why this app's coordinates are different**
+
+The Allen CCFv3 was built from perfusion-fixed brains, so its coordinates do not line up with what you measure on the surgical table. By default this app **corrects the per-axis scaling and the overall brain angle to the flat-skull position**, so the coordinates you read on screen are close to real stereotaxic coordinates.
+
+> To switch the correction off and see raw CCF coordinates, set **Preset** in the **Coordinates** tab to **Raw CCF**; to tune the values yourself, choose **Custom**.
 
 ---
 
-## Features
+## Layout
 
-1. Explore 3D and 2D structures based on the **Allen CCFv3 (2017) mesh dataset**. Rather than using the Allen CCFv3 meshes as-is, this app defaults to a state where the **per-axis scaling and the whole-brain angle are corrected to the flat-skull position**, providing the coordinate frame familiar from traditional stereotaxic surgery. (To turn the correction off and view raw coordinates, switch the **Preset** in the **Coordinates** tab to **Raw CCF**; to adjust it yourself, switch to **Custom**.)
+| Area | Contents |
+| --- | --- |
+| **Left panel** | **Ontology** (structure list) · **Mesh Source** · **Coordinates** (coordinate correction) tabs |
+| **Center viewport** | **3D view** on top, **Coronal · Sagittal · Horizontal** 2D section views below |
+| **Right panel** | **Points** (target registration) · **3D View** (display options) · **Export** (image output) |
 
-2. **Bregma personalization** — Correct the relative distance between the Allen CCF bregma and your own bregma to set up a coordinate frame tailored to each individual. The **bregma–lambda distance** is customizable as well.
-
-3. **Point registration & probe path analysis** — Register any arbitrary point and inspect it in 3D and 2D, visualize the probe path that reaches that point, and also review the **list of other regions the probe passes through** when inserted along that path.
-
-4. **Path simulation** — Apply **Tilt and Azimuth** to a path to simulate the optimal route to a target. The XYZ coordinate frame and the **order in which tilt · azimuth are applied can be customized to match the physical order of your actual hardware**.
-
-5. **Save / share views** — Save the current settings and point information as a "view" to reload later or share with others.
-
-6. **Offline & cross-platform** — The Allen CCFv3 dataset is embedded in the app, so it runs offline. Written as a single HTML file, it runs in any modern web browser regardless of OS.
+Both side panels collapse via the buttons at the **top-left / top-right of the viewport** — handy on a small screen.
 
 ---
 
-## Tutorial
+## 1. First, once: match bregma to your own
 
-### 1. The **Ontology** panel
-When you first launch the app, the **Ontology** panel appears on the left. Here you can toggle regions on and off, and search using the search box.
+**If you are starting fresh, do this before anything else.** The bregma each experimenter works from differs slightly, so calibrating once improves the accuracy of every coordinate afterwards.
 
-### 2. Bregma correction (**Coordinates** tab)
-From the tab list in the left panel, go to **Coordinates**. In the **Bregma / Lambda personalization** section you can match the Allen CCF bregma to your own bregma. **New users should do this first.** Inject a small amount of dye into a target that is narrow along the AP axis, then correct the bregma position via histology. Example:
+Adjust it in the **Coordinates** tab → **Bregma / Lambda personalization** section. A recommended procedure:
 
-1. Target the **anterior commissure** at roughly ML = mid ± 1 mm and inject a small amount of dye (e.g., 2–5 nL of Trypan Blue).
-2. Register the coordinates you used as a point (point registration is covered in step 5 below).
-3. Adjust **Bregma AP** and **Bregma DV** until the registered point lines up with the histology result.
-4. Record the values, or save the current view and use it like a personal profile.
+1. Pick a target that is narrow along the AP axis. The **anterior commissure** (ML = midline ± 1 mm) works well.
+2. Inject a small amount of dye — for example **2–5 nL** of Trypan Blue.
+3. Register the coordinates you used as a point. (See section 3 for how to register points.)
+4. Adjust **Bregma AP** and **Bregma DV** until the registered point sits where histology shows the injection.
+5. Record the final values, or save the current view and reuse it as a **personal profile**. (See section 5 for saving views.)
 
-### 3. **Manipulator convention** (**Coordinates** tab)
-In the **Manipulator convention** section of the **Coordinates** panel, you can choose the order of the XYZ axes and tilt · azimuth to match your real-world experimental setup. The default order and values match those of the commonly used stereotaxic arm.
-
-### 4. Navigating the 3D / 2D views
-There is a **3D view** at the top center and **three 2D views** below it.
-
-- **3D view**: left-drag to rotate, wheel to zoom.
-- **2D view**: left-drag to pan, wheel to zoom.
-- The **scrollbar** below each 2D view can be dragged, scrolled with the wheel, or set by typing a value directly to move to a different coordinate's 2D section. Holding **Ctrl while scrolling the wheel** changes the step from 0.1 to 0.01 — **10× finer** movement.
-
-### 5. Registering points (right panel)
-The right panel is where you register points.
-
-- Click **New point** to create a new point. You can set its name, coordinates, and a **radius** that helps gauge diffusion during infusion.
-- **Double-click** a point to move the 2D views to that point.
-- To add many coordinates at once, use **CSV import** for bulk registration.
-
-### 6. Path analysis
-Check a path for each point to see the route for approaching that point. Checking a path creates a **Path analysis** entry; click it to open the window and review every region the path passes through.
-
-- The **Path analysis** window **updates in real time** as coordinates and angles change.
-- The **manip value** shown when you enter angles is the value you need to set on the manipulator to reach that point's coordinates when bregma is set to X=Y=Z=0.
-- Use the buttons at the top of the window to export as **SVG** (for visualization) or **CSV** (for data analysis).
-
-> **Note:** Due to the nature of the Allen CCF mesh dataset, some areas belong to two or more regions at once. Such areas are displayed as both regions together; in the **Path analysis** window, the **half-width rectangles** are regions shown together because they overlap with another region.
-
-### 7. Saving / sharing a view
-Click **Save view** next to the app name at the top-left of the app to save the current settings and entered information. The saved view is downloaded as a `.json` file and can be reloaded with **Load view**. Hand this `.json` file (or the app html) to another user of the same app to reproduce the exact same state.
+The bregma–lambda distance (**Bregma to lambda**, 4.2 mm by default) is adjustable in the same section.
 
 ---
 
-### (Optional) Visualization controls
-- **Mesh opacity** — Adjust mesh transparency to see internal structures at the same time.
-- **Slice plane** — Clip 2D cross-sections to view only the section you want.
+## 2. Working with the views
+
+**Mouse controls**
+
+| | Rotate / pan | Zoom |
+| --- | --- | --- |
+| **3D view** | left-drag = rotate, right-drag = pan | wheel |
+| **2D view** | left-drag = pan | wheel |
+
+**Moving through sections**
+
+Use the slider below each 2D view to move the section plane. You can **drag** it, roll the **wheel** over it, or **type a value** into the number box.
+Holding **Ctrl while rolling the wheel** changes the step from 0.1 to 0.01 mm — **10× finer**.
+
+**Enlarging a single view**
+
+The **⛶** button at the top of each 2D view (bottom-right for the 3D view) makes that view fill the whole center area. While maximized, press **⤡** or **Esc** to return to the four-view layout.
+
+**Showing and hiding structures**
+
+Toggle regions in the **Ontology** panel on the left, or find them with the search box by name, acronym or ID.
+
+> **Dimmed entries** are structures with no mesh in the Allen CCFv3. Of the roughly 1,300 structures listed, only about 840 come with meshes, so subdivisions below a certain level cannot be displayed and their toggle is disabled. This is a limit of the source dataset, not of the app.
+
+---
+
+## 3. Registering points
+
+Register your targets in the **Points** panel on the right.
+
+- Click **New point** to create one, then set its name, coordinates, and **radius**. The radius is there to gauge the spread during infusion.
+- **Take coordinates by clicking a 2D view** — press the **◎ PICK** button at the right end of the coordinate row, and the cursor becomes a crosshair over the 2D views. Click the spot you want and its coordinates are filled in automatically. Press **Esc** to cancel.
+- **Double-click** a point to move the 2D views to it.
+- For many coordinates at once, use **CSV import**. Register one point and run **Export points (CSV)** to see the exact format the importer expects.
+
+---
+
+## 4. Path analysis: checking the insertion route
+
+Tick **Path** on a point to draw the route that reaches it and create a **Path analysis** entry. Open that entry to see **every region the route passes through**.
+
+- The window **updates in real time** as you change coordinates or angles.
+- Enter **Tilt** and **Azimuth** to simulate an angled approach. The **manip value** shown tells you where to set the manipulator to reach that point, assuming bregma is zeroed at ML = AP = DV = 0.
+- The buttons at the top of the **Path analysis** window export it as **SVG** (for figures) or **CSV** (for analysis).
+
+> **Matching your manipulator** — in the **Coordinates** tab, the **Manipulator convention** section lets you set the ML, AP, DV axis directions and the **order in which tilt · azimuth are applied** to match the physical build of your hardware. The defaults follow the common stereotaxic arm.
+
+> **Note** — because of how the CCF meshes are defined, some territory belongs to two or more regions at once. In the **Path analysis** window, a **half-width rectangle** marks a stretch that is shown together with an overlapping region.
+
+---
+
+## 5. Saving and sharing
+
+**Save view**, next to the app name at the top-left, writes the current settings and registered points to a `.json` file. **Load view** reads it back.
+
+- Type a note in the box just above **Save view** and it is appended to the filename after an underscore (e.g. `ccf-view-…_mouse42.json`).
+- Hand that `.json` (or the app's html file) to someone else running the same app and they can **reproduce your exact state**.
+
+---
+
+## 6. Exporting the viewport as an image
+
+The **Export** panel on the right holds three buttons.
+
+| Button | Result |
+| --- | --- |
+| **3D → PNG** | the 3D view as a high-resolution PNG |
+| **2D → PNG** | the current 2D sections as a PNG |
+| **2D → SVG** | the current 2D sections as **vector** artwork |
+
+SVG lets you restyle strokes and colours freely in Illustrator · Inkscape, which **suits figure preparation for papers**.
+The 2D exports follow what is on screen — if one view is **maximized you get that view alone**, otherwise **all three sections side by side**.
+
+---
+
+## Also worth knowing
+
+- **Mesh opacity** (**3D View** panel) — adjusts how transparent the meshes are.
+- The bottom-left corner of the viewport continuously shows the **coordinates** and **region name** under the cursor.
