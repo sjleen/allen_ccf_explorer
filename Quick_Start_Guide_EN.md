@@ -30,7 +30,7 @@ The Allen CCFv3 was built from perfusion-fixed brains, so its coordinates do not
 | --- | --- |
 | **Left panel** | **Ontology** (structure list) · **Mesh Source** · **Coordinates** (coordinate correction) tabs |
 | **Center viewport** | **3D view** on top, **Coronal · Sagittal · Horizontal** 2D section views below |
-| **Right panel** | **Points** (target registration) · **3D View** (display options) · **Export** (image output) |
+| **Right panel** | **Points** (target registration) · **3D View** (display options) · **Export images** (image output) |
 
 Both side panels collapse via the buttons at the **top-left / top-right of the viewport** — handy on a small screen.
 
@@ -46,7 +46,7 @@ Adjust it in the **Coordinates** tab → **Bregma / Lambda personalization** sec
 2. Inject a small amount of dye — for example **2–5 nL** of Trypan Blue.
 3. Register the coordinates you used as a point. (See section 3 for how to register points.)
 4. Adjust **Bregma AP** and **Bregma DV** until the registered point sits where histology shows the injection.
-5. Record the final values, or save the current view and reuse it as a **personal profile**. (See section 5 for saving views.)
+5. Record the final values, or save the current session and reuse it as a **personal profile**. (See section 5 for saving sessions.)
 
 The bregma–lambda distance (**Bregma to lambda**, 4.2 mm by default) is adjustable in the same section.
 
@@ -85,7 +85,7 @@ Register your targets in the **Points** panel on the right.
 - Click **New point** to create one, then set its name, coordinates, and **radius**. The radius is there to gauge the spread during infusion.
 - **Take coordinates by clicking a 2D view** — press the **◎ PICK** button at the right end of the coordinate row, and the cursor becomes a crosshair over the 2D views. Click the spot you want and its coordinates are filled in automatically. Press **Esc** to cancel.
 - **Double-click** a point to move the 2D views to it.
-- For many coordinates at once, use **CSV import**. Register one point and run **Export points (CSV)** to see the exact format the importer expects.
+- For many coordinates at once, use **Import points (CSV)**. Register one point and run **Export points (CSV)** to see the exact format the importer expects.
 
 ---
 
@@ -99,22 +99,22 @@ Tick **Path** on a point to draw the route that reaches it and create a **Path a
 
 > **Matching your manipulator** — in the **Coordinates** tab, the **Manipulator convention** section lets you set the ML, AP, DV axis directions and the **order in which tilt · azimuth are applied** to match the physical build of your hardware. The defaults follow the common stereotaxic arm.
 
-> **Note** — because of how the CCF meshes are defined, some territory belongs to two or more regions at once. In the **Path analysis** window, a **half-width rectangle** marks a stretch that is shown together with an overlapping region.
+> **Reading the plot** — the horizontal direction is the **ontology level** (broader structures on the left, finer on the right, with the level number along the top). Because of how the CCF meshes are defined, one spot can belong to two or more regions at once; when several regions at the same level share a stretch, they split that level's width — half each for two, a third each for three. A stretch with no overlap uses the full width.
 
 ---
 
 ## 5. Saving and sharing
 
-**Save view**, next to the app name at the top-left, writes the current settings and registered points to a `.json` file. **Load view** reads it back.
+**Save session**, next to the app name at the top-left, writes the current settings and registered points to a `.json` file. **Load session** reads it back.
 
-- Type a note in the box just above **Save view** and it is appended to the filename after an underscore (e.g. `ccf-view-…_mouse42.json`).
+- Type a note in the box just above **Save session** and it is appended to the filename after an underscore (e.g. `ccf-session-…_mouse42.json`).
 - Hand that `.json` (or the app's html file) to someone else running the same app and they can **reproduce your exact state**.
 
 ---
 
 ## 6. Exporting the viewport as an image
 
-The **Export** panel on the right holds three buttons.
+The **Export images** panel on the right holds three buttons.
 
 | Button | Result |
 | --- | --- |
